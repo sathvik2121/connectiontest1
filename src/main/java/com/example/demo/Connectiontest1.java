@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
-public class Connectiontest {
+public class Connectiontest1 {
 
 	public static void main(String[] args) throws DocumentException, URISyntaxException, StorageException, IOException, GeneralSecurityException, TransformerException  {
 		
-		Connectiontest ob= new Connectiontest();
+		Connectiontest1 ob= new Connectiontest1();
 		String s=ob.returnValue();
 		System.out.println(s);
-		SpringApplication.run(Connectiontest.class, args);
+		SpringApplication.run(Connectiontest1.class, args);
 	}
 
 	@GetMapping("/")
@@ -50,7 +50,7 @@ public class Connectiontest {
 	    //public static void main( String[] args ) throws StorageException, URISyntaxException, GeneralSecurityException, TransformerException, IOException
 		public String returnValue()throws StorageException, URISyntaxException, GeneralSecurityException, TransformerException, IOException
 	    {
-			  final String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=mqbawblobstorage01;AccountKey=4eEEA1jiy/kEpf9PvN8ikjQeXGFODXXH33G+VPhUiyhqzF7K7RrwFg/0CDEBJpkaYzWArR1bW2XD+AStaWP6zg==;EndpointSuffix=core.windows.net";
+			  final String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=storagetestpoccsl;AccountKey=SAe7L4MStD0F/FNFgXgsTDzda4aqptsq4lOO1Bl4QpXiTbbiMi78H01CKpVTFPXUsRjNjLJbsAl++AStgB4PLA==;EndpointSuffix=core.windows.net";
 	    	File text=File.createTempFile("text", ".txt");
 	        	
 	    		
@@ -62,8 +62,8 @@ public class Connectiontest {
 	    		
 				storageAccount = CloudStorageAccount.parse(storageConnectionString);
 				blobClient = storageAccount.createCloudBlobClient();
-				container = blobClient.getContainerReference("bawcsl");
-				CloudBlockBlob blob2 = container.getBlockBlobReference("Welcome.txt");
+				container = blobClient.getContainerReference("test");
+				CloudBlockBlob blob2 = container.getBlockBlobReference("welcome.txt");
 				FileOutputStream os= new FileOutputStream(text);
 				blob2.download(os);
 				 BufferedReader br= new BufferedReader(new FileReader(text));
