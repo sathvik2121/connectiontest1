@@ -14,6 +14,7 @@
 	<name>spring-demo</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+	
 		<java.version>1.8</java.version>
 	 <fop.version>2.1</fop.version>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -87,10 +88,38 @@
 	</dependencies>
 
 	<build>
+	<finalName>uber-jar</finalName>
 		<plugins>
-			<plugin>
+		<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.4</version>
+				<executions>
+					<!-- Run shade goal on package phase -->
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

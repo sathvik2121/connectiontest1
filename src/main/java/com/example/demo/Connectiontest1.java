@@ -8,7 +8,11 @@ import java.io.IOException;
 
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import javax.xml.transform.TransformerException;
 
@@ -26,11 +30,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class Connectiontest1 {
 
 	public static void main(String[] args) throws DocumentException, URISyntaxException, StorageException, IOException, GeneralSecurityException, TransformerException  {
-		
+		SpringApplication.run(Connectiontest1.class);
 		Connectiontest1 ob= new Connectiontest1();
-		String s=ob.returnValue();
+		List<String> s=ob.returnValue();
 		System.out.println(s);
-		SpringApplication.run(Connectiontest1.class, args);
+		
 	}
 
 	@GetMapping("/")
@@ -38,7 +42,7 @@ public class Connectiontest1 {
 	public String method2()
 	{
 		
-		return "welcome to ContainerCheck";
+		return "welcome to Listcheck";
 	}
 	
 	@GetMapping("/testing")
@@ -47,40 +51,15 @@ public class Connectiontest1 {
 
 		
 	   
-	    //public static void main( String[] args ) throws StorageException, URISyntaxException, GeneralSecurityException, TransformerException, IOException
-		public String returnValue()throws StorageException, URISyntaxException, GeneralSecurityException, TransformerException, IOException
+			public List<String> returnValue()
 	    {
-			  final String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=storagetestpoccsl;AccountKey=SAe7L4MStD0F/FNFgXgsTDzda4aqptsq4lOO1Bl4QpXiTbbiMi78H01CKpVTFPXUsRjNjLJbsAl++AStgB4PLA==;EndpointSuffix=core.windows.net";
-	    	File text=File.createTempFile("text", ".txt");
-	        	
-	    		
-
-	    		CloudStorageAccount storageAccount;
-	    		CloudBlobClient blobClient = null;
-	    		CloudBlobContainer container=null;
-
-	    		
-				storageAccount = CloudStorageAccount.parse(storageConnectionString);
-				blobClient = storageAccount.createCloudBlobClient();
-				container = blobClient.getContainerReference("test");
-				CloudBlockBlob blob2 = container.getBlockBlobReference("welcome.txt");
-				FileOutputStream os= new FileOutputStream(text);
-				blob2.download(os);
-				 BufferedReader br= new BufferedReader(new FileReader(text));
-				 String st;
-				 String s="";
-			        while ((st = br.readLine()) != null)
-			        {
-			        	 s=st;
-			        }  
-			        br.close();
-				 
-		 text.deleteOnExit();
-		 //System.out.println(s);
-		  return s;
-				
-				
+		List<String> s=new ArrayList<String>() ;
+		s.add("a");
+		s.add("b");
+		s.add("c");
+		return s;	
 	    }
 	
+	    
 }	
 	
