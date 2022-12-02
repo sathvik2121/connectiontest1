@@ -14,7 +14,6 @@
 	<name>spring-demo</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-	
 		<java.version>1.8</java.version>
 	 <fop.version>2.1</fop.version>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -69,6 +68,7 @@
     <groupId>com.itextpdf</groupId>
     <artifactId>itextpdf</artifactId>
     <version>5.5.13.3</version>
+    <type>pom</type>
 </dependency>
 <dependency>
 	<groupId>com.itextpdf</groupId>
@@ -88,13 +88,11 @@
 	</dependencies>
 
 	<build>
-	
 		<plugins>
-		<plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
 		</plugins>
 	</build>
 
