@@ -61,10 +61,10 @@ import java.security.cert.Certificate;
 public class SignatureGeneration {
 
 	public static void main(String[] args) throws StorageException, URISyntaxException, GeneralSecurityException, MalformedURLException, UnsupportedEncodingException   {
-		SignatureGeneration ob= new SignatureGeneration();
-		String s=ob.run("data2_2022_12_02.pdf");
-	
-		System.out.println(s);
+//		SignatureGeneration ob= new SignatureGeneration();
+//		String s=ob.run("data2_2022_12_02.pdf");
+//	
+//		System.out.println(s);
 
 		SpringApplication.run(SignatureGeneration.class, args);
 	}
