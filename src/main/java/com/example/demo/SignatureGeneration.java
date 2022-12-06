@@ -61,10 +61,10 @@ import java.security.cert.Certificate;
 public class SignatureGeneration {
 
 	public static void main(String[] args) throws StorageException, URISyntaxException, GeneralSecurityException, MalformedURLException, UnsupportedEncodingException   {
-//		SignatureGeneration ob= new SignatureGeneration();
-//		String s=ob.run("data2_2022_12_02.pdf");
-//	
-//		System.out.println(s);
+		SignatureGeneration ob= new SignatureGeneration();
+		String s=ob.run("data1_2022_12_06.pdf","Sathvik");
+	
+		System.out.println(s);
 
 		SpringApplication.run(SignatureGeneration.class, args);
 	}
@@ -79,7 +79,7 @@ public class SignatureGeneration {
 	
 	@GetMapping("/testing")
 	
-	public String run(@RequestParam( name="fileName") String name)throws StorageException, URISyntaxException,  GeneralSecurityException
+	public String run(@RequestParam( name="fileName") String name,@RequestParam( name="userName") String userName)throws StorageException, URISyntaxException,  GeneralSecurityException
 	{
 		final String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=mqbawblobstorage01;AccountKey=4eEEA1jiy/kEpf9PvN8ikjQeXGFODXXH33G+VPhUiyhqzF7K7RrwFg/0CDEBJpkaYzWArR1bW2XD+AStaWP6zg==;EndpointSuffix=core.windows.net";
 	    final char[] PASSWORD = "EliLilly".toCharArray();
@@ -117,7 +117,7 @@ public class SignatureGeneration {
 	               Certificate[] chain = ks.getCertificateChain(alias);
 	               SignatureGeneration app = new SignatureGeneration();
 	               app.sign(outputFile.getAbsolutePath(), finalFile.getAbsolutePath() , chain, pk, DigestAlgorithms.SHA256, provider.getName(),
-	               PdfSigner.CryptoStandard.CMS, "Approved", "India");
+	               PdfSigner.CryptoStandard.CMS, userName, "India");
 	               String fileNameWithOutExt = FilenameUtils.removeExtension(name);
 	               CloudBlockBlob blob = container.getBlockBlobReference(fileNameWithOutExt+".pdf");
 	               blob.uploadFromFile(finalFile.getAbsolutePath());
@@ -154,14 +154,14 @@ public class SignatureGeneration {
    }
 
 public void sign(String src, String dest, Certificate[] chain, PrivateKey pk, String digestAlgorithm,
-        String provider, PdfSigner.CryptoStandard signatureType, String reason, String location)
+        String provider, PdfSigner.CryptoStandard signatureType, String userName, String location)
         throws GeneralSecurityException, IOException {
 
     PdfReader reader = new PdfReader(src);
     PdfSigner signer = new PdfSigner(reader, new FileOutputStream(dest),false);
     Rectangle rect = new Rectangle(70, 105, 400, 400);
     PdfSignatureAppearance appearance = signer.getSignatureAppearance();
-    appearance.setReason(reason).setLocation(location).setReuseAppearance(false).setPageRect(rect).setPageNumber(5);
+    appearance.setReasonCaption("Approved By "+userName).setLocation(location).setReuseAppearance(false).setPageRect(rect).setPageNumber(5);
     signer.setFieldName("sig");
     IExternalSignature pks = new PrivateKeySignature(pk, digestAlgorithm, provider);
     IExternalDigest digest = new BouncyCastleDigest();
